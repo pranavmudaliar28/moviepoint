@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<!-- BEGIN | Header -->
+{% include 'header.html' %}
+<!-- END | Header -->
+
+<div class="hero common-hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="hero-ct">
+                    <h1>series List</h1>
+                    <ul class="breadcumb">
+                        <li class="active"><a href="{% url 'home' %}">Home</a></li>
+                        <li><span class="ion-ios-arrow-right"></span> series list</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-single">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="topbar-filter fw">
+                    <p>Found <span>{{data}} series</span> in total</p>
+                    <label>Sort by:</label>
+                  <li class="dropdown first" >
+                        <a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown">
+                            Default <i class="fa fa-angle-down" aria-hidden="true"></i>
+                        </a>
+                        <ul class="dropdown-menu level1">
+                            <li><a href="/Series{% for i in Serie %}?rating_desc={{i.id}}{% endfor %}">Rating Descending</a></li>
+                            <li><a href="/Series{% for i in Serie %}?rating_asc={{i.id}}{% endfor %}">Rating Ascending</a></li>
+                            <li><a href="/Series{% for i in Serie %}?date_desc={{i.id}}{% endfor %}">Release date Descending</a></li>
+                            <li><a href="/Series{% for i in Serie %}?date_asc={{i.id}}{% endfor %}">Release date Ascending</a></li>
+                        </ul>
+                    </li>
+                </div>
+                {% if Serie|length < 1 %}
+                <div class="page-single-2">
+                    <div class="container">
+                        <div class="row">
+                            <div class="middle-content">
+                                <a href="{% url 'home' %}"><img class="md-logo" src="{% static 'images/logo1.png'%}" alt=""></a>
+                                <img src="{% static 'images/uploads/err-img.png'%}" alt="">
+                                <h1>Page not found</h1>
+                                <a href="{% url 'home' %}" class="redbtn">go home</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                <div class="flex-wrap-movielist mv-grid-fw">
+                    {% for i in page_obj %}
+                    <div class="movie-item-style-2 movie-item-style-1">
+                        <img src="{{i.poster.url}}" alt="">
+                        <div class="hvr-inner">
+                            <a href="{% url 'seriesdetail' i.id  %}"> Read more <i
+                                    class="ion-android-arrow-dropright"></i> </a>
+                        </div>
+                        <div class="mv-item-infor">
+                            <h6><a href="{% url 'seriesdetail' i.id  %}">{{i.name}}</a></h6>
+                            <p class="rate"><i class="ion-android-star"></i><span>{{i.IMDB_rating }}</span> /10</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="topbar-filter">
+                   <div class="pagination2">
+                        <span>Page 1 of {{total_pages}}:</span>
+                        {% if page_obj.has_previous %}
+                       <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                        {% endif %}
+                        <span class="active">{{ page_obj.number }}</span>
+
+                        {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}">next</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- footer section-->
+{% include 'footer.html' %}
+<!-- end of footer section-->
+{% endblock %}

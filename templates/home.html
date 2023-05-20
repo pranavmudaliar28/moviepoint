@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<!-- BEGIN | Header -->
+{% include 'header.html' %}
+<!-- END | Header -->
+<div class="slider movie-items">
+    <div class="container">
+        <div class="row">
+            <div class="slick-multiItemSlider">
+                {% for i in films %}
+                <div class="movie-item">
+                    <div class="mv-img">
+                        <a href="{% url 'moviedetail' i.id %}"><img src="{{i.poster.url}}" alt="" width="285"
+                                                                    height="437"></a>
+                    </div>
+                    <div class="title-in">
+                        <div class="cate">
+                            {% for i1 in i.genres_set.all %}
+                            <span class="{{i1.color}}"><a href="#">{{i1.genres}}</a></span>
+                            {% endfor %}
+                        </div>
+                        <h6><a href="{% url 'moviedetail' i.id %}">{{i.name}}</a></h6>
+                        <p><i class="ion-android-star"></i><span>{{i.IMDB_rating}}</span> /10</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="movie-items">
+    <div class="container">
+        <div class="row ipad-width">
+            <div class="col-md-12">
+                <div class="title-hd">
+                    <h2>Latest Movies</h2>
+                    <a href="{% url 'movie'%}" class="viewall">View all <i class="ion-ios-arrow-right"></i></a>
+                </div>
+                <div class="tabs">
+                    <div class="tab-content">
+                        <div id="tab1-h2" class="tab active">
+                            <div class="row">
+                                <div class="slick-multiItem2">
+                                    {% for i in film %}
+                                    <div class="slide-it">
+                                        <div class="movie-item">
+                                            <div class="mv-img">
+                                                <img src="{{i.poster.url}}" alt="" width="185" height="284">
+                                            </div>
+                                            <div class="hvr-inner">
+                                                <a href="{% url 'moviedetail' i.id  %}"> Read more <i
+                                                        class="ion-android-arrow-dropright"></i> </a>
+                                            </div>
+                                            <div class="title-in">
+                                                <h6><a href="{% url 'moviedetail' i.id %}">{{i.name}}</a></h6>
+                                                <p><i class="ion-android-star"></i><span>{{i.IMDB_rating}}</span> /10
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="title-hd">
+                    <h2>web-series</h2>
+                    <a href="{% url 'Series'%}" class="viewall">View all <i class="ion-ios-arrow-right"></i></a>
+                </div>
+                <div class="tabs">
+                    <div class="tab-content">
+                        <div id="tab1-h2" class="tab active">
+                            <div class="row">
+                                <div class="slick-multiItem2">
+                                    {% for i3 in Serie %}
+                                    <div class="slide-it">
+                                        <div class="movie-item">
+                                            <div class="mv-img">
+                                                <img src="{{i3.poster.url}}" alt="" width="185" height="284">
+                                            </div>
+                                            <div class="hvr-inner">
+                                                <a href="{% url 'seriesdetail' i3.id  %}"> Read more <i
+                                                        class="ion-android-arrow-dropright"></i> </a>
+                                            </div>
+                                            <div class="title-in">
+                                                <h6><a href="{% url 'seriesdetail' i3.id %}">{{i3.name}}</a></h6>
+                                                <p><i class="ion-android-star"></i><span>{{i3.IMDB_rating}}</span> /10
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- footer section-->
+{% include 'footer.html' %}
+<!-- end of footer section-->
+{% endblock %}

@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<!-- BEGIN | Header -->
+{% include 'header.html' %}
+<!-- END | Header -->
+
+
+<div class="hero mv-single-hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-single movie-single movie_single">
+    <div class="container">
+        <div class="row ipad-width2">
+            <div class="col-md-4 col-sm-12 col-xs-12">
+                <div class="movie-img sticky-sb">
+                    <img src="{{film.poster.url}}" alt="">
+                    <div class="movie-btn">
+                        <div class="btn-transform transform-vertical red">
+                            <div><a href="#" class="item item-1 redbtn"> <i class="ion-play"></i> Watch Trailer</a>
+                            </div>
+                            <div><a href="{{film.watchtralier}}" class="item item-2 redbtn "><i
+                                    class="ion-play"></i></a></div>
+                        </div>
+                        <div class="btn-transform transform-vertical">
+                            <div><a href="#" class="item item-1 yellowbtn"> <i class="fa fa-download"></i>Download</a>
+                            </div>
+                            <div><a href="{{film.Downloadlink}}" class="item item-2 yellowbtn"><i
+                                    class="fa fa-download"></i></a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 col-sm-12 col-xs-12">
+                <div class="movie-single-ct main-content">
+                    <h1 class="bd-hd">{{film.name}} <span>{{film.Releaseyear}}</span></h1>
+                    <div class="film-rate">
+                        <div class="rate">
+                            <p><i class="ion-android-star"> IMDB RATING</i></p>
+                            <p><span>{{film.IMDB_rating}}</span> /10<br>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="movie-tabs">
+                        <div class="tabs">
+                            <ul class="tab-links tabs-mv">
+                                <li class="active"><a href="#overview">Overview</a></li>
+                                <li><a href="#media"> Media</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div id="overview" class="tab active">
+                                    <div class="row">
+                                        <div class="col-md-8 col-sm-12 col-xs-12">
+                                            <p> {{film.description}} </p>
+                                            <div class="title-hd-sm">
+                                                <h4>Photos</h4>
+                                                <a href="#media" class="time">All{{data2}} Photos <i
+                                                        class="ion-ios-arrow-right"></i></a>
+                                            </div>
+                                            {% for i3 in film.media_set.all %}
+                                            <div class="mvsingle-item ov-item">
+                                                <a class="img-lightbox" data-fancybox-group="gallery"
+                                                   href="{{i3.photo}}"><img src="{{i3.photo}}" alt="" style=" width: 20%;"></a>
+                                            </div>
+                                            {% endfor %}
+                                            <div class="title-hd-sm">
+                                                <h4>Download link</h4>
+                                            </div>
+                                            <!-- movie cast -->
+                                            <div class="mvcast-item">
+                                                <div class="cast-it">
+                                                    {% for i4 in film.downloadlink_set.all %}
+                                                    <div class="cast-left">
+                                                        <a href="{{i4.link}}">{{i4.title}}</a>
+                                                    </div>
+                                                    <p>... ({{i4.size}})</p>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-xs-12 col-sm-12">
+                                            <div class="sb-it">
+                                                <h6>Plot Keywords:</h6>
+                                                <p class="tags">
+                                                    {% for i2 in film.Keyword_set.all %}
+                                                    <span class="time"><a href="#">{{i2.keyword}}</a></span>
+                                                    {% endfor %}
+                                                </p>
+                                            </div>
+                                            <div class="ads">
+                                                <img src="images/uploads/ads1.png" alt="">
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="media" class="tab">
+                                    <div class="row">
+                                        <div class="rv-hd">
+                                            <div>
+                                                <h3> Photos </h3>
+                                                <h2>{{film.name}}</h2>
+                                            </div>
+                                        </div>
+                                        <div class="title-hd-sm">
+                                            <h4>Photos <span> ({{data2}})</span></h4>
+                                        </div>
+                                        {% for i3 in film.media_set.all %}
+                                        <div class="mvsingle-item">
+
+                                            <a class="img-lightbox" data-fancybox-group="gallery"
+                                               href="{{i3.photo}}"><img src="{{i3.photo}}" alt="" style=" width: 20%;"></a>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- footer section-->
+{% include 'footer.html' %}
+<!-- end of footer section-->
+{% endblock %}

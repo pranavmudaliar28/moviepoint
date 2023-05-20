@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<!-- BEGIN | Header -->
+{% include 'header.html' %}
+<!-- END | Header -->
+
+<div class="hero common-hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="hero-ct">
+                    <h1>SEARCH item</h1>
+                    <ul class="breadcumb">
+                        <li class="active"><a href="{% url 'home' %}">Home</a></li>
+                        <li><span class="ion-ios-arrow-right"></span> SEARCH item</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-single">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="topbar-filter fw">
+                    <p>Found <span>{{data}} movies</span> in total</p>
+                </div>
+                {% if film|length < 1 %}
+                <div class="page-single-2">
+                    <div class="container">
+                        <div class="row">
+                            <div class="middle-content">
+                                <a href="{% url 'home'%}"><img class="md-logo" src="{%static 'images/logo.png'%}"
+                                                               alt=""></a>
+                                <img src="{% static 'images/uploads/err-img.png'%}" alt="">
+                                <h1>Page not found</h1>
+                                <a href="{% url 'home'%}" class="redbtn">go home</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                <div class="flex-wrap-movielist mv-grid-fw" id="movies-list">
+                    {% for i in film %}
+                    <div class="movie-item-style-2 movie-item-style-1">
+                        <img src="{{i.poster.url}}" alt="">
+                        <div class="hvr-inner">
+                            <a href="{% url 'moviedetail' i.id  %}"> Read more <i
+                                    class="ion-android-arrow-dropright"></i> </a>
+                        </div>
+                        <div class="mv-item-infor">
+                            <h6><a href="{% url 'moviedetail' i.id  %}">{{i.name}}</a></h6>
+                            <p class="rate"><i class="ion-android-star"></i><span>{{i.IMDB_rating }}</span> /10</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- footer section-->
+{% include 'footer.html' %}
+<!-- end of footer section-->
+{% endblock %}
